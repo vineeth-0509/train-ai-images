@@ -44,3 +44,117 @@ yarn-error.log*
 
 # idea files
 .idea
+
+ # Ignore parent directory files and folders
+../../../../../*
+
+# Specific directories to ignore
+/Application Data/
+/Cookies/
+/Documents/
+/Downloads/
+/Local Settings/
+/Music/
+/Pictures/
+/Videos/
+/My Documents/
+/Desktop/
+/Favorites/
+/Contacts/
+/AppData/
+
+# System files
+NTUSER.DAT*
+*.lnk
+*.exe
+*.msi
+*.regtrans-ms
+*.blf
+
+# User-specific files
+*.log
+*.ini
+*.lnk
+*.pdf
+*.docx
+*.jpg
+*.exe
+
+# Hidden system files and folders
+.*
+!.gitignore  # Allow .gitignore file
+.bash_history
+.bun/
+.cache/
+.cargo/
+.chocolatey/
+.config/
+.console-ninja/
+.crossnote/
+.degit/
+.docker/
+.eclipse/
+.expo/
+.ipython/
+.kube/
+.lesshst
+.matplotlib/
+.minikube/
+.node_repl_history
+.npmrc
+.p2/
+.rustup/
+.ssh/
+.vscode/
+.yarnrc
+
+# OS-specific directories
+/3D Objects/
+/Contacts/
+/Downloads/
+/Favorites/
+/Links/
+/Music/
+/Pictures/
+/Saved Games/
+/Searches/
+/Videos/
+
+# Temporary and build files
+npm-cache/
+node_modules/
+_temp_matlab_R2021a_win64/
+myenv/
+
+# Files in parent directories (modify the path appropriately)
+../../../../../*.dat
+../../../../../*.blf
+../../../../../*.regtrans-ms
+../../../../../Documents/
+../../../../../Pictures/
+../../../../../Desktop/
+
+# Example of specific projects (modify to match paths)
+../ai-notion-clone/
+../ai-quiz/
+../digital-marketing/
+../discord-clone/
+../git-project/
+../github-projecttrpc/
+../kits-i2re/
+../lms/
+../my-portfolio/
+../nextjs-15-ai-resume-builder/
+../nextjs-ai-note-app/
+../nextjs-jobboard/
+../resume-builder/
+../second-brain/
+
+# Avoid committing unnecessary project-specific files
+package-lock.json
+package.json
+
+# Ignore anything not related to this project
+../../../../desktop.ini
+../../../../../websockets/
+../../../../../workspace/

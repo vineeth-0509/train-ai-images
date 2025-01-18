@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import useProject from "@/hooks/use-project";
 import { cn } from "@/lib/utils";
 import {
   Bot,
@@ -24,6 +25,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 const items = [
   {
     title: "Dashboard",
@@ -47,13 +49,8 @@ const items = [
   },
 ];
 
-const projects = [
-  { name: "project 1" },
-  { name: "project 2" },
-  { name: "project 3" },
-  { name: "project 4" },
-];
 export function AppSidebar() {
+  const {projects, projectId, setProjectId} = useProject();
   const pathname = usePathname();
   const { open } = useSidebar();
   return (
@@ -98,16 +95,18 @@ export function AppSidebar() {
             <SidebarGroupLabel>Projects</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {projects.map((project) => {
+                {projects?.map((project) => {
                   return (
                     <SidebarMenuItem key={project.name}>
                       <SidebarMenuButton asChild>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3" onClick={()=>{
+                          setProjectId(project.id)
+                        }}>
                           <div
                             className={cn(
                               "flex size-6 items-center justify-center rounded-sm border bg-white text-sm text-primary",
                               {
-                                "bg-primary text-white": true,
+                                "bg-primary text-white": project.id === projectId,
                               },
                             )}
                           >

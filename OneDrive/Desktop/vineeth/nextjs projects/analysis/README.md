@@ -33,3 +33,9 @@ https://github.com/aishwaryanr/awesome-generative-ai-guide/blob/main/research_up
 
 //chatgpt link:
 https://chatgpt.com/share/678b827f-0738-800f-b6c1-1fc1c68d3dd5
+
+
+
+//informative techs
+usehooks-ts -> this gives the very 
+-useQueryClient from tanstack/react-Query

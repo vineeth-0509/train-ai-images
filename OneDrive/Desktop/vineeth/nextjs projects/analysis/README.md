@@ -46,3 +46,6 @@ usehooks-ts -> this gives the very
 
 
 langchains : allows us to work with llms and also with the structured data.
+
+
+2.12

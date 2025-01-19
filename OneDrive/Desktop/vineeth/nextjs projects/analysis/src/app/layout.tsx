@@ -20,11 +20,9 @@ export default function RootLayout({
       <html lang="en" className={`${GeistSans.variable}`}>
         <body>
           <TRPCReactProvider>{children}</TRPCReactProvider>
-          <Toaster richColors/>
+          <Toaster richColors />
         </body>
       </html>
     </ClerkProvider>
   );
 }
-
-

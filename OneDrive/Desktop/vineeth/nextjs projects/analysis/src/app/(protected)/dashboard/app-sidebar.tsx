@@ -122,7 +122,7 @@ export function AppSidebar() {
                   {open && (
                     <SidebarMenuItem>
                       <Link href="/create">
-                        <Button className="w-fit bg-blue-700 text-white">
+                        <Button className="w-fit bg-mycolor text-white">
                           <Plus size={5} strokeWidth={3} />
                           Create Project
                         </Button>

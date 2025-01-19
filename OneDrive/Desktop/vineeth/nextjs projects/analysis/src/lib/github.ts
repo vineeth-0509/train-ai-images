@@ -38,7 +38,7 @@ export const getCommitHashes = async (
   return sortedCommits.slice(0, 10).map((commit: any) => ({
     commitHash: commit.sha as string,
     commitMessage: (commit.commit?.message as string) ?? "",
-    commitAuthorName: commit.commit?.author?.name ?? "",
+    commitAuthorName: (commit.commit?.author?.name as string) ?? "",
     commitAuthorAvatar: commit?.author?.avatar_url ?? "",
     commitDate: commit.commit?.author.date ?? "",
   }));
@@ -51,18 +51,42 @@ export const pollCommits = async (projectId: string) => {
     projectId,
     commitHashes,
   );
-  console.log(unprocessedCommits);
-  return unprocessedCommits;
+  const summaryResponses = await Promise.allSettled(
+    unprocessedCommits.map((commit) => {
+      return summariseCommit(githubUrl, commit.commitHash);
+    }),
+  );
+  const summaries = summaryResponses.map((response) => {
+    if (response.status === "fulfilled") {
+      return response.value as string;
+    }
+    return "";
+  });
+  const commit = await db.commit.createMany({
+    data: summaries.map((summary, index) => {
+      console.log(`Processing commits ${index}`);
+      return {
+        projectId: projectId,
+        commitHash: unprocessedCommits[index]!.commitHash,
+        commitMessage: unprocessedCommits[index]!.commitMessage,
+        commitAuthor: unprocessedCommits[index]!.commitAuthorName, // Added commitAuthor
+        commitAuthorAvatar: unprocessedCommits[index]!.commitAuthorAvatar,
+        commitDate: unprocessedCommits[index]!.commitDate,
+        summary,
+      };
+    }),
+  });
+  return commit;
 };
 
-async function summariseCommit(commitHash: string) {
+async function summariseCommit(githubUrl: string, commitHash: string) {
   //get the diff and pass the diff in to the ai.
   const { data } = await axios.get(`${githubUrl}/commit/${commitHash}.diff`, {
     headers: {
       Accept: "application/vnd.github.v3.diff",
     },
   });
-  return await aiSummariseCommit(data);
+  return (await aiSummariseCommit(data)) || "";
 }
 
 async function fetchProjectGithubUrl(projectId: string) {

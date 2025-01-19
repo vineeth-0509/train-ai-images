@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { Github } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import CommitLog from "./commit-log";
 
 const DashboardPage = () => {
   // const { user } = useUser(); //it provides access to the current users object, which contains all the data for a single user in your application and provides methods to manage their account.
@@ -41,7 +42,9 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      <div className="mt-8">Commitlog</div>
+      <div className="mt-8">
+        <CommitLog/>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,9 @@ const DashboardPage = () => {
   const { project } = useProject();
   return (
     <div>
+      {project?.id}
       <div className="flex flex-wrap items-center justify-between gap-y-4">
+        {/* github link */}
         <div className="m-4 w-fit rounded-md bg-primary px-4 py-3">
           <div className="flex items-center">
             <Github className="size-5 text-white" />
@@ -20,12 +22,26 @@ const DashboardPage = () => {
                 <Link
                   href={project?.githubUrl ?? ""}
                   className="inline-flex items-center text-white/80 hover:underline"
-                >{project?.githubUrl}</Link>
+                >
+                  {project?.githubUrl}
+                </Link>
               </p>
             </div>
           </div>
         </div>
+        <div className="h-4"></div>
+        <div className="flex items-center gap-4">
+          TeamMembers InviteButton Archive
+        </div>
       </div>
+
+      <div className="mt-4">
+        <div className="grid grid-cols-1 gap-4">
+          AskQuestionCard MeetingCard
+        </div>
+      </div>
+
+      <div className="mt-8">Commitlog</div>
     </div>
   );
 };

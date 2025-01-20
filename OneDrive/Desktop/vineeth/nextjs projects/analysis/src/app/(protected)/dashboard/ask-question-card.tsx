@@ -1,5 +1,6 @@
 "use client";
 
+import MDEditor from "@uiw/react-md-editor";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -14,46 +15,75 @@ import Image from "next/image";
 import { useState } from "react";
 import { askQuestion } from "./actions";
 import { readStreamableValue } from "ai/rsc";
+import CodeReferences from "./code-references";
 
 const AskQuestionCard = () => {
   const { project } = useProject();
   const [open, setOpen] = useState(false);
   const [question, setQuestion] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [filesReferences, setFilesReferences] = useState<{fileName:string; sourceCode: string; summary:string}[]>([])
-  const [answer, setAnswer] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [filesReferences, setFilesReferences] = useState<
+    { fileName: string; sourceCode: string; summary: string[] }[]
+  >([]);
+  const [answer, setAnswer] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setAnswer("");
+    setFilesReferences([]);
     e.preventDefault();
     if (!project?.id) return;
-    setOpen(true);
-    const {output, filesReferences} = await askQuestion(question, project.id)
-    setFilesReferences(filesReferences)
+    setLoading(true);
 
-    for await( const delta of readStreamableValue(output)){
-        if(delta) {
-            setAnswer(ans => ans + delta) //this creates the streaming sequence of tokens comming 1 after one.
-        }
+    const { output, filesReferences: rawFilesReferences } = await askQuestion(
+      question,
+      project.id,
+    );
+    const filesReferences = rawFilesReferences.map(
+      (file: { fileName: string; sourceCode: string; summary: string }) => ({
+        ...file,
+        summary: [file.summary],
+      }),
+    );
+    setOpen(true);
+    setFilesReferences(filesReferences);
+
+    for await (const delta of readStreamableValue(output)) {
+      if (delta) {
+        setAnswer(ans => ans + delta); //this creates the streaming sequence of tokens comming 1 after one.
+      }
     }
     setLoading(false);
   };
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-[80vw]">
           <DialogHeader>
             <DialogTitle>
               <Image src="/logo.png" alt="analysis" width={40} height={40} />
             </DialogTitle>
           </DialogHeader>
-          {answer}
-          <h1>File References</h1>
+          <MDEditor.Markdown
+            source={answer}
+            className="h-full max-h-[60vh] max-w-[80vw] overflow-scroll"
+          />
+          <div className="h-4"></div>
+          <CodeReferences filesReferences={filesReferences} />
+
+          {/* <h1>File References</h1>
             {filesReferences.map(file => {
                 return <span>
                   {file.fileName} 
                 </span>
-            })}
-          
+            })} */}
+          <Button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Close
+          </Button>
         </DialogContent>
       </Dialog>
       <Card className="ralative col-span-3">
@@ -67,7 +97,9 @@ const AskQuestionCard = () => {
                 onChange={(e) => setQuestion(e.target.value)}
               />
               <div className="mt-2 h-4">
-                <Button>Ask Analysis!</Button>
+                <Button type="submit" disabled={loading}>
+                  Ask Analysis!
+                </Button>
               </div>
             </form>
           </CardContent>

@@ -55,3 +55,6 @@ rag:2.31  we are retrieving the relevant stuff and putting the relevant document
 -> first convert the query to an vector embedding.and do a vector similarity search for the top 10 files or the top 100 files. we take the contents of the all top 10 files and insert in to the ai prompt and stream back the answer into the ui.
 2.38 installing the streaming work
 2.39
+// @uiw/react-md-editor this is best to display the outputs of ai.
+//react-syntax-highlighter 
+// @types/react-syntax-highlighter

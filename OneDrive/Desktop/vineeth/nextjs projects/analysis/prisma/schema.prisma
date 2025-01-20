@@ -85,7 +85,7 @@ model Question {
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
     question        String
-    asnwer          String
+    answer          String
     filesReferences Json?
     projectId       String
     project         Project  @relation(fields: [projectId], references: [id])

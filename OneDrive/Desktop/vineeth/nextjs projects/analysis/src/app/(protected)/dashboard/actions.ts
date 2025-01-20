@@ -34,7 +34,7 @@ export async function askQuestion(question: string, projectId: string) {
       const { textStream } = await streamText({
         model: google("gemini-1.5-flash"),
         prompt: `
-        You are an AI code assistant designed to help technical interns understand and work with codebases effectively. Your traits include expert knowledge, helpfulness, cleverness, and articulateness. You are polite, friendly, and inspiring, always eager to provide detailed and thoughtful responses.
+       You are an AI code assistant designed to help technical interns understand and work with codebases effectively. Your traits include expert knowledge, helpfulness, cleverness, and articulateness. You are polite, friendly, and inspiring, always eager to provide detailed and thoughtful responses.
 
 Your primary responsibilities include:
 

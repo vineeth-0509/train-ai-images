@@ -16,6 +16,9 @@ import { useState } from "react";
 import { askQuestion } from "./actions";
 import { readStreamableValue } from "ai/rsc";
 import CodeReferences from "./code-references";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import useRefetch from "@/hooks/use-refetch";
 
 const AskQuestionCard = () => {
   const { project } = useProject();
@@ -26,7 +29,7 @@ const AskQuestionCard = () => {
     { fileName: string; sourceCode: string; summary: string[] }[]
   >([]);
   const [answer, setAnswer] = useState("");
-
+  const saveAnswer = api.project.saveAnswer.useMutation();
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setAnswer("");
     setFilesReferences([]);
@@ -49,19 +52,46 @@ const AskQuestionCard = () => {
 
     for await (const delta of readStreamableValue(output)) {
       if (delta) {
-        setAnswer(ans => ans + delta); //this creates the streaming sequence of tokens comming 1 after one.
+        setAnswer((ans) => ans + delta); //this creates the streaming sequence of tokens comming 1 after one.
       }
     }
     setLoading(false);
   };
+  const refetch = useRefetch();
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[80vw]">
           <DialogHeader>
-            <DialogTitle>
-              <Image src="/logo.png" alt="analysis" width={40} height={40} />
-            </DialogTitle>
+            <div className="flex items-center gap-2" suppressHydrationWarning>
+              <DialogTitle>
+                <Image src="/logo.png" alt="analysis" width={40} height={40} />
+              </DialogTitle>
+              <Button
+                disabled={saveAnswer.isPending}
+                variant={"outline"}
+                onClick={() => {
+                  saveAnswer.mutate(
+                    {
+                      projectId: project!.id,
+                      question,
+                      answer,
+                      filesReferences,
+                    },
+                    {
+                      onSuccess: () => {
+                        toast.success("Answer saved!");
+                      },
+                      onError: () => {
+                        toast.error("Failed to save answer!");
+                      },
+                    },
+                  );
+                }}
+              >
+                Save Answer
+              </Button>
+            </div>
           </DialogHeader>
           <MDEditor.Markdown
             source={answer}

@@ -34,27 +34,30 @@ https://github.com/aishwaryanr/awesome-generative-ai-guide/blob/main/research_up
 //chatgpt link:
 https://chatgpt.com/share/678b827f-0738-800f-b6c1-1fc1c68d3dd5
 
-
-
 know these:
 ring-1 ring-inset ring-gray-200
 
 //informative techs
-usehooks-ts -> this gives the very 
+usehooks-ts -> this gives the very
 -useQueryClient from tanstack/react-Query
 -octokit -> using octokit can interact with the repository and commit history of the certain repository.
 
-
 langchains : allows us to work with llms and also with the structured data.
-
 
 2.12
 2.20
-rag:2.31  we are retrieving the relevant stuff and putting the relevant documents in the context of ai .  so, we effectively agumenting the generation,we are chaing the generation.
+rag:2.31 we are retrieving the relevant stuff and putting the relevant documents in the context of ai . so, we effectively agumenting the generation,we are chaing the generation.
 2.36 to get the agumented generation.
 -> first convert the query to an vector embedding.and do a vector similarity search for the top 10 files or the top 100 files. we take the contents of the all top 10 files and insert in to the ai prompt and stream back the answer into the ui.
 2.38 installing the streaming work
 2.39
 // @uiw/react-md-editor this is best to display the outputs of ai.
-//react-syntax-highlighter 
+//react-syntax-highlighter
 // @types/react-syntax-highlighter
+
+assemblu-ai 3.13
+react-dropzone used to drag and drop and upload files.
+3.20 we upload to the firebase server and storing in the firebase server and server returns us with a url of the audio, we save the urk in db next. with name, status: processing / completed, url, summaries.
+-> we take the url of the mp3 nad put in to assemblyai which gives us back list of issues and we update the metting with the status on the issues.
+
+-> npm i react-circular-progressbar

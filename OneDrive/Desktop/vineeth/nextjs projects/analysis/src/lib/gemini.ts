@@ -50,10 +50,11 @@ export const aiSummariseCommit = async (diff: string) => {
 //console.log(await aiSummariseCommit());
 
 export async function summariseCode(doc: Document) {
-  console.log("Gettinf summary for", doc.metadata.source);
-  const code = doc.pageContent.slice(0, 1000);
-  const response = await model.generateContent([
-    `You are an intelligent senior engineer who specialises in onboarding junior software engineer onto projects.
+  console.log("Getting summary for", doc.metadata.source);
+  try {
+    const code = doc.pageContent.slice(0, 1000);
+    const response = await model.generateContent([
+      `You are an intelligent senior engineer who specialises in onboarding junior software engineer onto projects.
       You are onboaring a junior software engineer and explaining to them the purpose of the ${doc.metadata.source} file.
       Here is the code:
       ----
@@ -61,9 +62,11 @@ export async function summariseCode(doc: Document) {
       ----
       Give a summary no more than 100 words of the code above
       `,
-  ]);
-  return response.response.text();
-  //const summary = await aiSummariseCommit(doc.pageContent)
+    ]);
+    return response.response.text();
+  } catch (error) {
+    return " ";
+  }
 }
 
 export async function generateEmbedding(summary: string) {
@@ -75,4 +78,4 @@ export async function generateEmbedding(summary: string) {
   return embedding.values;
 }
 
-console.log(await generateEmbedding("hello world"));
+//console.log(await generateEmbedding("hello world"));

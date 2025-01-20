@@ -49,3 +49,9 @@ langchains : allows us to work with llms and also with the structured data.
 
 
 2.12
+2.20
+rag:2.31  we are retrieving the relevant stuff and putting the relevant documents in the context of ai .  so, we effectively agumenting the generation,we are chaing the generation.
+2.36 to get the agumented generation.
+-> first convert the query to an vector embedding.and do a vector similarity search for the top 10 files or the top 100 files. we take the contents of the all top 10 files and insert in to the ai prompt and stream back the answer into the ui.
+2.38 installing the streaming work
+2.39

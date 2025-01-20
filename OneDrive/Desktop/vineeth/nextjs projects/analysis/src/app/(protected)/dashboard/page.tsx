@@ -5,6 +5,8 @@ import { Github } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import CommitLog from "./commit-log";
+import AskQuestionCard from "./ask-question-card";
+import MeetingCard from "./MeetingCard";
 
 const DashboardPage = () => {
   // const { user } = useUser(); //it provides access to the current users object, which contains all the data for a single user in your application and provides methods to manage their account.
@@ -36,14 +38,15 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      <div className="mt-4">
-        <div className="grid grid-cols-1 gap-4">
-          AskQuestionCard MeetingCard
+      <div className="ml-4 mt-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
+          <AskQuestionCard />
+          <MeetingCard />
         </div>
       </div>
 
       <div className="mt-8">
-        <CommitLog/>
+        <CommitLog />
       </div>
     </div>
   );

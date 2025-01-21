@@ -9,8 +9,12 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { api } from "@/trpc/react";
 import useProject from "@/hooks/use-project";
 import { toast } from "sonner";
-import router from "next/router";
+import { useRouter } from 'next/navigation'
+
+
+
 const MeetingCard = () => {
+  const router = useRouter();
   const { project } = useProject();
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -39,7 +43,8 @@ const MeetingCard = () => {
         },{
           onSuccess: ()=>{
             toast.success("Meeting uploaded successfully")
-            router.push('/meetings');
+            router.push('/meetings')
+            
           }, 
           onError: ()=>{
             toast.error("Failed to upload meeting")

@@ -61,3 +61,5 @@ react-dropzone used to drag and drop and upload files.
 -> we take the url of the mp3 nad put in to assemblyai which gives us back list of issues and we update the metting with the status on the issues.
 
 -> npm i react-circular-progressbar
+
+3.44 //assembly ai

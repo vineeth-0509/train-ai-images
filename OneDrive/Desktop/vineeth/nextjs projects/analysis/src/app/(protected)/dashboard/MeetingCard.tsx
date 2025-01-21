@@ -9,13 +9,28 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { api } from "@/trpc/react";
 import useProject from "@/hooks/use-project";
 import { toast } from "sonner";
-import { useRouter } from 'next/navigation'
-
-
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 const MeetingCard = () => {
   const router = useRouter();
   const { project } = useProject();
+  const processMeeting = useMutation({
+    mutationFn: async (data: {
+      meetingUrl: string;
+      meetingId: string;
+      projectId: string;
+    }) => {
+      const { meetingUrl, meetingId, projectId } = data;
+      const response = await axios.post("/api/process-meeting", {
+        meetingUrl,
+        meetingId,
+        projectId,
+      });
+      return response.data;
+    },
+  });
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const uploadMeeting = api.project.uploadMeeting.useMutation();
@@ -40,16 +55,22 @@ const MeetingCard = () => {
           projectId: project.id,
           meetingUrl: downloadUrl,
           name: file.name,
-        },{
-          onSuccess: ()=>{
-            toast.success("Meeting uploaded successfully")
-            router.push('/meetings')
-            
-          }, 
-          onError: ()=>{
-            toast.error("Failed to upload meeting")
-          }
-        });
+        },
+        {
+          onSuccess: (meeting) => {
+            toast.success("Meeting uploaded successfully");
+            router.push("/meetings");
+            processMeeting.mutateAsync({
+              meetingUrl: downloadUrl,
+              meetingId: meeting.id,
+              projectId: project.id,
+            });
+          },
+          onError: () => {
+            toast.error("Failed to upload meeting");
+          },
+        },
+      );
       setIsUploading(false);
     },
   });

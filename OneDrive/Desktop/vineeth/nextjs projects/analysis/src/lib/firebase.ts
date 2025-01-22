@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import {
   getDownloadURL,
   getStorage,
@@ -24,7 +24,12 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+isSupported().then((supported)=> {
+  if(supported){
+    const analytics = getAnalytics(app);
+  }
+})
+
 export const storage = getStorage(app);
 
 //as we uploading to the firebase we keep the percentage of the file has been uploaded, we set the state and call this callback function whenever we get the new update on the percentage.on

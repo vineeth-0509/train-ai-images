@@ -16,7 +16,6 @@ const DashboardPage = () => {
   const { project } = useProject();
   return (
     <div>
-      {project?.id}
       <div className="flex flex-wrap items-center justify-between gap-y-4">
         {/* github link */}
         <div className="m-4 w-fit rounded-md bg-primary px-4 py-3">
@@ -37,9 +36,9 @@ const DashboardPage = () => {
         </div>
         <div className="h-4"></div>
         <div className="flex items-center gap-4">
-          <TeamMembers/>
-          <InviteButton/>
-          <ArchiveButton/>
+          <TeamMembers />
+          <InviteButton />
+          <ArchiveButton />
         </div>
       </div>
 

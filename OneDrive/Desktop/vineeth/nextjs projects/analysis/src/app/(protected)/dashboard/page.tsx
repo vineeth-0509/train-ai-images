@@ -8,8 +8,10 @@ import CommitLog from "./commit-log";
 import AskQuestionCard from "./ask-question-card";
 import MeetingCard from "./MeetingCard";
 import ArchiveButton from "./archive-button";
-import InviteButton from "./invite-button";
+// import InviteButton from "./invite-button";
+const InviteButton = dynamic(() => import("./invite-button"), { ssr: false });
 import TeamMembers from "./team-members";
+import dynamic from "next/dynamic";
 
 const DashboardPage = () => {
   // const { user } = useUser(); //it provides access to the current users object, which contains all the data for a single user in your application and provides methods to manage their account.

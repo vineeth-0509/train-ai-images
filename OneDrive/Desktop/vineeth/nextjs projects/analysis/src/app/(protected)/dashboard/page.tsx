@@ -1,7 +1,5 @@
 "use client";
 import useProject from "@/hooks/use-project";
-import { useUser } from "@clerk/nextjs";
-import { Github } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import CommitLog from "./commit-log";
@@ -11,6 +9,7 @@ import ArchiveButton from "./archive-button";
 const InviteButton = dynamic(() => import("./invite-button"), { ssr: false });
 import TeamMembers from "./team-members";
 import dynamic from "next/dynamic";
+import { Github } from "lucide-react";
 
 const DashboardPage = () => {
   // const { user } = useUser(); //it provides access to the current users object, which contains all the data for a single user in your application and provides methods to manage their account.

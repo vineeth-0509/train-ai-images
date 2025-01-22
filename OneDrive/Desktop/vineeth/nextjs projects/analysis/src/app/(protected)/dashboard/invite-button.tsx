@@ -8,19 +8,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import useProject from "@/hooks/use-project";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 const InviteButton = () => {
   const { projectId } = useProject();
   const [open, setOpen] = useState(false);
-  const [inviteLink, setInviteLink] = useState<string | null>(null);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setInviteLink(`${window.location.origin}/join/${projectId}`);
-    }
-  }),
-    [projectId];
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -40,7 +33,7 @@ const InviteButton = () => {
               );
               toast.success("copied to clipboard");
             }}
-            value={inviteLink ?? ""}
+            value={`${window.location.origin}/join/${projectId}`}
           />
         </DialogContent>
       </Dialog>

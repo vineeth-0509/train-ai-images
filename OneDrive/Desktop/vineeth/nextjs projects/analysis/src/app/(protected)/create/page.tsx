@@ -18,7 +18,7 @@ export default function createPage() {
   const checkCredits = api.project.checkCredits.useMutation();
   const refetch = useRefetch();
   function onSubmit(data: FormInput) {
-    if(!!checkCredits.data){
+    if (!!checkCredits.data) {
       createProject.mutate(
         {
           githubUrl: data.repoUrl,
@@ -36,15 +36,17 @@ export default function createPage() {
           },
         },
       );
-    } else{
+    } else {
       checkCredits.mutate({
         githubUrl: data.repoUrl,
-        githubToken: data.githubToken
-      })
+        githubToken: data.githubToken,
+      });
     }
-      }
+  }
 
-      const hasEnoughCredits = checkCredits?.data?.userCredits? checkCredits.data.fileCount <= checkCredits.data.userCredits : true
+  const hasEnoughCredits = checkCredits?.data?.userCredits
+    ? checkCredits.data.fileCount <= checkCredits.data.userCredits
+    : true;
   return (
     <div className="flex h-full items-center justify-center gap-12">
       <img
@@ -86,22 +88,31 @@ export default function createPage() {
             <div className="h-4"></div>
             {!!checkCredits.data && (
               <>
-              <div className="mt-4 bg-orange-50 px-4 py-2 rounded-md border-orange-200 text-orange-700">
-                <div className='flex items-center gap-2'>
-                  <Info className='size-4'/>
-                  <p className='text-sm'>You will be chatged <strong>{checkCredits.data?.fileCount}</strong>credits for this repository</p>
-
+                <div className="mt-4 rounded-md border-orange-200 bg-orange-50 px-4 py-2 text-orange-700">
+                  <div className="flex items-center gap-2">
+                    <Info className="size-4" />
+                    <p className="text-sm">
+                      You will be charged{" "}
+                      <strong>{checkCredits.data?.fileCount}</strong>credits for
+                      this repository
+                    </p>
+                  </div>
+                  <p className="ml-6 text-sm text-blue-600">
+                    You have <strong>{checkCredits.data?.userCredits}</strong>{" "}
+                    credits remainig.
+                  </p>
                 </div>
-                <p className='text-sm text-blue-600 ml-6'>You have <strong>{checkCredits.data?.userCredits}</strong> credits remainig.</p>
-
-              </div>
               </>
             )}
             <Button
               type="submit"
-              disabled={createProject.isPending || !!checkCredits.isPending || !hasEnoughCredits}>
-                {!!checkCredits.data? 'Create Project': 'Check credits'}
-             
+              disabled={
+                createProject.isPending ||
+                checkCredits.isPending ||
+                !hasEnoughCredits
+              }
+            >
+              {!!checkCredits.data ? "Create Project" : "Check credits"}
             </Button>
           </form>
         </div>

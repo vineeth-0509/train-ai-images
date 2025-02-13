@@ -151,8 +151,6 @@ myenv/
 ../second-brain/
 
 # Avoid committing unnecessary project-specific files
-package-lock.json
-package.json
 
 # Ignore anything not related to this project
 ../../../../desktop.ini

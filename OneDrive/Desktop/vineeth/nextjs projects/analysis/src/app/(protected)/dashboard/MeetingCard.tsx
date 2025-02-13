@@ -36,7 +36,7 @@ const MeetingCard = () => {
   const uploadMeeting = api.project.uploadMeeting.useMutation();
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "audio/*": [".mp3", "wav", ".m4a"],
+      "audio/*": [".mp3", ".wav", ".m4a"],
     },
     multiple: false,
     maxSize: 50_000_000,
@@ -49,7 +49,7 @@ const MeetingCard = () => {
       const downloadUrl = (await uploadFile(
         file as File,
         setProgress,
-      )) as string;
+      )) as string
       uploadMeeting.mutate(
         {
           projectId: project.id,

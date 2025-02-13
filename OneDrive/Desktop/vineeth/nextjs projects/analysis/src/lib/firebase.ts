@@ -48,8 +48,7 @@ export async function uploadFile(
         "state_changed",
         (snapshot) => {
           const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-          ); //this gives the percentage.
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100); //this gives the percentage.
           if (setProgress) setProgress(progress);
           switch (snapshot.state) {
             case "paused":

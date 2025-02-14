@@ -1,0 +1,20 @@
+{
+  "name": "common",
+  "module": "index.ts",
+  "type": "module",
+  "exports": {
+    "./types": "./types.ts",
+    "./inferred": "./inferred-types.ts"
+  },
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}

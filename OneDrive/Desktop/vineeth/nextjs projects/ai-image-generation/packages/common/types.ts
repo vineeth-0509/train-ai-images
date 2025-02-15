@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-const GenederEnum = z.enum(["Man", "Woman", "Other"]);
+const GenederEnum = z.enum(["Man", "Woman", "others"]);
 const EthnicityEnum = z.enum([
   "White",
   "Black",
-  "Asian American",
-  "East Asian",
-  "South East Asian",
-  "Middle Eastern",
+  "Asian_American",
+  "East_Asian",
+  "South_East_Asian",
+  "Middle_Eastern",
   "Pacific",
   "Hispanic",
 ]);
@@ -17,7 +17,7 @@ export const TrainModel = z.object({
   name: z.string(),
   type: GenederEnum,
   age: z.number(),
-  ethnicity: EthnicityEnum,
+  ethinicity: EthnicityEnum,
   eyeColor: EyeColorEnum,
   bald: z.boolean(),
   images: z.array(z.string()),
@@ -29,7 +29,7 @@ export const GenerateImage = z.object({
   num: z.number(),
 });
 
-export const GeneralImagesFromPack = z.object({
+export const GenerateImagesFromPack = z.object({
   modelId: z.string(),
   packId: z.string(),
 });

@@ -20,7 +20,7 @@ export const TrainModel = z.object({
   ethinicity: EthnicityEnum,
   eyeColor: EyeColorEnum,
   bald: z.boolean(),
-  images: z.array(z.string()),
+  zipUrl: z.string()
 });
 
 export const GenerateImage = z.object({

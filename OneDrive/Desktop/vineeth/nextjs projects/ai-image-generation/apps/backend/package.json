@@ -13,6 +13,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0",
+    "@aws-sdk/s3-request-presigner": "^3.750.0",
     "@clerk/nextjs": "^6.11.2",
     "@fal-ai/client": "^1.2.3",
     "@neondatabase/serverless": "^0.10.4",
@@ -21,6 +23,7 @@
     "common": "*",
     "cors": "^2.8.5",
     "db": "*",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
   }
